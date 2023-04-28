@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <title>Phantom Shootings</title>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <script type="text/javascript" src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" src="SliderControl.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">    
+  <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css"></script>
+</head>
+
+<body>
+  <div class="preloader">
+    <img src="recycle.gif" class="blueit" alt="spinner">
+  </div>
+  
+  <div class="postload">
+    <div id="cal-heatmap"></div>
+    <div class="subbody">
+ 
+      <div id="title"></div>
+ 
+      <div class="sitemain">
+        <h2>Phantom Shootings</h2>
+
+        <p class="text">
+          Shootings are witnessed by many New Yorkers but, 
+          according to the data, nothing happened.
+          A lot of us worry about "nothing" every day.
+        </p>
+
+        <p class="text">
+        NYC Open Data’s NYPD Shooting Incidents Data (Historic and Year to Date) 
+        introduces itself as a "list of every shooting incident that occured in NYC going back to 2006".
+        This statement begins a cycle which can misrepresent facts,
+        particularly when the data is used in relation to 
+          <b class="hoverable">
+            <span class="showme" style="position:absolute">
+              While no official definition exists, it is generally accepted that a mass shooting 
+              has 4 or more injured victims.
+           </span>
+          mass shootings</b>.
+        </p>
+    
+        <p class="text">
+          The following visualization shows the location of NYC mass shootings using these datasets.
+          Incidents which no longer meet the criteria after critical analysis are 
+          identified with pulsing markers.
+        </p>
+
+        <div id="mapcont"><div id="mapcontslider"></div></div><br> <div id="map"></div>
+
+
+        <p class="text">
+          The dataset's 
+          <b class="hoverable"> <img class="showme"  src="DescScrSh4.JPG"> 
+            full description
+          </b> 
+          reassures that every shooting incident will be present in the data.
+          It makes itself avaiable for "the public to explore the nature of shooting/criminal activity". 
+          Accepting this invitation should be done with extreme caution.
+        </p>
+
+        <br>
+        <h4>
+           Data Misrepresented by the Description
+         </h4>
+         <img src="recycle1.png" class="arrow">
+
+        <div class="exvids">
+          <video id="vid1" class="dynVid" src="porch.mp4" controls></video><video id = "vid2" class="dynVid" src="sidewalk.mp4" controls></video>
+        </div>
+  
+        <p class="statement">
+          <span class="stated">
+           The above shootings don't appear in the dataset. 
+          </span>
+        </p>
+
+        <br>
+     
+        <p class="text">
+          The description's <b class="hoverable">closing sentence 
+          <span class="showme" style="position:absolute">
+            "Please refer to the attached data footnotes for additional information about this dataset."
+           <br><i>-Dataset's Description</i>
+          </span></b> 
+          alludes to why.
+          If users scroll, find, download, and open the PDF they'll discover footnotes 
+          that contradict the dataset's previous claims.
+        </p>
+        <br>
+        <h4>
+          Description Contradicted by the Details
+        </h4>
+        <img src="recycle2.png" class="arrow">
+
+
+        <p class ="text">
+        <b class="hoverable">
+          <span class="showme" style="position:absolute">
+            "A shooting incident can have multiple victims involved and as a result duplicate 
+            INCIDENT_KEY’s are produced. Each INCIDENT_KEY represents a victim but 
+            similar duplicate keys are counted as one incident."
+            <br><i>-Footnotes; Page 1</i>
+          </span>Footnote 3</b> reveals that this is not a dataset of shooting incidents, it's a dataset of shooting victims.
+        </p>
+
+        <p class="text">
+          <b class="hoverable">
+            <span class="showme" style="position:absolute">
+              "Only valid shooting incidents resulting in an injured victim are included in this 
+              release. Shooting incidents not resulting in an injured victim are classified 
+              according to the appropriate offense according to NYS Penal Law"
+              <br><i>-Footnotes; Page 2</i>
+            </span>Footnote 14</b>
+              uncovers the reason why these incidents aren't included. 
+              The dataset only reports the subset of victims who suffered physical injuries. 
+        </p>
+       
+        <br>
+
+        <h4>
+          Details Discredited by the Data
+        </h4>
+        <img src="recycle3.png" class="arrow">
+
+        <p class="text">          
+          Exploring the dataset reveals that there are hundreds of records that 
+          change. These changes aren't updated. They're appended.          
+        </p>
+        <p class = "text">
+          The impact of this discovery is available for review in the visualization below.
+          It attempts to account for updated murder classifications, but cannot 
+          account for other discrepancies.
+        </p>
+        <br>
+        <!-- START TABLEAU -->
+        <div class='tableauPlaceholder' id='viz1681186084968' style='position: relative'><noscript><a href='#'><img alt='Dashboard 1 (2) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ca&#47;CapTab4&#47;Dashboard12&#47;1_rss.png' style='border: none' /></a>
+        </noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='CapTab4&#47;Dashboard12' /><param name='tabs' value='no' /><param name='toolbar' value='yes' />
+          <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ca&#47;CapTab2&#47;Dashboard12&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1681186084968');                    
+          var vizElement = divElement.getElementsByTagName('object')[0];                    
+          if ( divElement.offsetWidth > 800 ) { vizElement.style.width='60vw'/* '1000px' */;vizElement.style.height='827px';} 
+          else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='60vw'/*'1000px'*/;vizElement.style.height='827px';} 
+          else { vizElement.style.width='100%';vizElement.style.height='1377px';}                    
+            var scriptElement = document.createElement('script');                    
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            <!-- END TABLEAU -->
+      
+        <div class="exvids"><video id="vid3" class="dynVid" src="bday.mp4" controls></video></div>
+ 
+        <p class = "text">
+          The footnotes stated that each row represents a victim. 
+          This incident has one row.
+        </p>
+ 
+        <p class = "text">
+          With an identical age, sex, and race, 
+          these victims are not represented as individuals; they are compressed as data. 
+          This occurs for every incident
+          regardless of how many people were involved, injured, or murdered.
+        </p>
+        <p class="text">
+          The documentation fails to announce a critical limitation: 
+          It is impossible to determine how many people are 
+          represented in the data.
+        </p>
+      
+
+        <div id="spindiv"><img id="recycleall" src="recycle123.png" class="arrow"><img id="spin" src="cycle1.png" class="" ></div>
+<br>
+        <p class = "short">
+          As a whole, the dataset ignores context by not 
+          admitting that the previously referenced instances 
+          qualify as a shooting incident in the public's mind.
+        </p>
+
+        <p class = "short">
+         It fetishize size and doubles down on the claim to be "every shooting incident". 
+        </p>
+        <p class = "short">
+         It inflates its technical and scientific capabilities by presenting itself as a tool to "explore the nature of shooting/criminal activity."
+        </p>
+
+        <br>
+        <p class="statement">
+        <span class="stated">This is not every shooting incident.<br>This is 
+          <b class="hoverable" >
+            <span class="showme" style="position:absolute">
+              "Big Dick Data projects ignore context, fetishize size, 
+              and inflate their technical and scientific capabilities."
+              <br><i>-Data Feminism; Catherine D’Ignazio and Lauren F. Klein</i>
+            </span>Big Dick Data</b>.
+          </span>
+        </p>
+  
+
+      </div>  
+    </div>
+    <div id="wrapup" class="text"></div>
+  </div>
+
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
